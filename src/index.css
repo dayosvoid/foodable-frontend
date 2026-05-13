@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #fef08a;
+  --color-brand-card: #ffffff;
+  --color-brand-text: #1f2937;
+  --transition-delay-theme: 400ms;
+}
+
+.dark {
+  --color-brand-bg: #111827;
+  --color-brand-card: #1f2937;
+  --color-brand-text: #f9fafb;
+}
+
+@layer base {
+  *, ::after, ::before {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: var(--transition-delay-theme);
+  }
+}
+
+/* Add these missing utility classes */
+@layer components {
+  .theme-bg-surface {
+    background-color: var(--color-brand-bg);
+  }
+  .theme-bg-card {
+    background-color: var(--color-brand-card);
+  }
+  .theme-text {
+    color: var(--color-brand-text);
+  }
+}
