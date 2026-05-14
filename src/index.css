@@ -3,7 +3,9 @@
 @theme {
   --color-brand-bg: #fef08a;
   --color-brand-card: #ffffff;
-  --color-brand-text: #1f2937;
+  --color-brand-text: #374151;
+  --color-brand-standout: #fbea67;
+  --color-brand-lightgray: #9ca3af;
   --transition-delay-theme: 400ms;
 }
 
@@ -11,6 +13,9 @@
   --color-brand-bg: #111827;
   --color-brand-card: #1f2937;
   --color-brand-text: #f9fafb;
+  --color-brand-standout: #fef083;
+  --color-brand-lightgray: #9ca3af;
+  
 }
 
 @layer base {
@@ -29,7 +34,16 @@
   .theme-bg-card {
     background-color: var(--color-brand-card);
   }
+  .theme-standout {
+    background-color: var(--color-brand-standout);
+  }
   .theme-text {
     color: var(--color-brand-text);
+  }
+  .theme-text-standout {
+    color: var(--color-brand-standout);
+  }
+  .theme-lightgray{
+    color: var(--color-brand-lightgray)
   }
 }
