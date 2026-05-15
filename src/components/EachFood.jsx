@@ -2,25 +2,25 @@ import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import { IoIosAdd } from 'react-icons/io'
 
-const EachFood = () => {
+const EachFood = ({name,day,mealPeriod}) => {
    return (
-    <div className='w-50 p-3 theme-bg-card'>
+    <div className='w-50 md:w-70 p-3 theme-bg-card theme-lightgray rounded-sm'>
       <div>
         {/* days of the week */}
-        <div className='flex justify-between p  p-2 '> 
+        <div className='flex justify-between items-center w-full py-2 '> 
             <span className='theme-text font-semibold '>
-                <p>Monday</p>
+                <p>{day}</p>
             </span>
-            <button>
-                <IoIosAdd />
+            <button className=''>
+                <IoIosAdd className='size-7'/>
             </button>
         </div>
 
         {/* FOOD CONTENT */}
-        <div className='flex bg-amber-200 rounded-md h-30 p-3 justify-between items-center'>
+        <div className='flex theme-bg-surface rounded-md h-30 p-3 justify-between items-center'>
             <span>
-                <p className='font-medium theme-text '>
-                    jo;;of rice and chicken
+                <p className='font-bold theme-text '>
+                   {name}
                 </p>
             </span>
 
@@ -31,7 +31,10 @@ const EachFood = () => {
             </span>
         </div>
 
-        <div  className='w-full flex justify-end py-2' >
+        <div  className='w-full flex justify-between py-2' >
+            <div className='font-medium theme-lightgray px-3 py-1 rounded-full'>
+                <p>{mealPeriod}</p>
+            </div>
             <button className='bg-gray-900 text-gray-400 font-semibold font-2xl rounded-2xl py-1 px-3'>
                 Edit
             </button>

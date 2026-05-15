@@ -1,6 +1,6 @@
 import {axiosInstance} from "./index"
 
-const handleGetAllFood = async()=>{
-    const response = axiosInstance("")
+export const handleGetAllFood = async () => {
+    const response = await axiosInstance.get('/api/foodable/food/getAll')
     return response.data
 }
