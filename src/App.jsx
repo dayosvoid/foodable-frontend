@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import RegisterPage from './pages/RegisterPage'
 import { Toaster, toast } from 'sonner';
 import Dashboard from './pages/Dashboard';
+import CreateMeal from './components/CreateMeal';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
+
   )
 }
 

@@ -7,11 +7,19 @@ import EachFood from '../components/EachFood'
 import { handleGetAllFood } from '../apiCalls/food'
 import { toast } from 'sonner'
 import { BarLoader } from 'react-spinners'
+import CreateMeal from '../components/CreateMeal'
+import { toggleCreateMealModal } from '../redux/modal'
+import { CiMenuFries } from 'react-icons/ci'
+import { IoClose } from 'react-icons/io5'
 
 const Dashboard = () => {
+    const [menuOpen,setMenuOpen] = useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const { currentTheme } = useSelector(state => state.theme);
     const [allFood, setAllFood] = useState([])
+
+    const dispatch = useDispatch()
+    const {createMealModal}= useSelector(state => state.modal)
 
     const GetAllFood = async()=>{
         try {
@@ -32,48 +40,77 @@ const Dashboard = () => {
     useEffect(()=>{
         GetAllFood()
     },[])
+
+    // mobile addMeal function
+    const mobileAddMeal =()=>{
+        setMenuOpen(false)
+        dispatch(toggleCreateMealModal())
+    }
   return (
     <div className={`${currentTheme}`}>
       <div className='theme-bg-card'>
         {/* NAV */}
         <nav className='flex justify-between items-center py-5 container w-11/12 mx-auto'>
             {/* LEFT */}
-            <div className='theme-text-standout flex-1 flex  gap-1 theme-text items-center text-xl md:text-2xl font-bold '>
+            <div className='theme-text-standout md:w-50 lg:w-80 flex  gap-1 theme-text items-center text-xl md:text-2xl font-bold '>
                 <span>
                     <GiHotMeal className='md:size-10 size-7 ' />
                 </span>
                 <h2 >Foodable</h2>
             </div>
             {/* MIDDLE */}
-            <div className='hidden px-10 w-full justify-between text-gray-400 theme-text md:flex theme-text  text-lg font-semibold'>
+            <div className='hidden flex-1 justify-between text-gray-400 theme-text md:flex theme-text  text-lg font-semibold'>
                 <button>
-                    <a href="">Meals</a>
+                    <a href="">Your meals</a>
                 </button>
 
-                <button>
+                {/* <button>
                     <a href="">Ingredient</a>
-                </button>
+                </button> */}
 
                 <button>
-                    <a href="">Recommend</a>
+                    <a href="">Recommendations</a>
                 </button>
 
-                <button>
-                    <a href="">Add Meal</a>
+                <button type='button' onClick={()=>dispatch(toggleCreateMealModal())}>
+                    Add Meal
                 </button>
-            </div>
+            </div >
             {/* RIGHT */}
-            <div className='flex flex-1 items-center justify-end'>
+            <div onClick={()=>setMenuOpen(!menuOpen)}  className='theme-text-standout md:hidden'>
+                {!menuOpen?<CiMenuFries className='size-5'/> :<IoClose className='theme-text-standout size-5' />  }
+
+            </div>
+
+             
+            {/* <div className='flex flex-1 items-center justify-end'>
                 <div>
-                    {/* <p>Welcome </p> */}
+                    <p>Welcome </p>
                 </div>
                 <div className='w-7 h-7 rounded-full bg-black'>
-                    {/* <img src="*" alt="" /> */}
+                    <img src="*" alt="" />
                 </div>
-            </div>
+            </div> */}
         </nav>
 
-        <div className='w-full border-b-3 theme-lightgray'></div>
+        <div className='w-full justify-end border-b-3 theme-lightgray'></div>
+
+
+       {/* mobile menu */}
+
+            {
+                menuOpen && <div className='flex flex-col w-full theme-lightgray font-semibold gap-8 py-5 px-2 inset-0 z-50 h-screen fixed top-17 bg-black/50 backdrop-blur-md'>
+                    <button className='text-start'>Your meals</button>
+                    <button className='text-start'>Recommendations</button>
+                    <button onClick={()=>mobileAddMeal()} className='text-start'>Add Meal</button>
+            </div>
+            }
+
+                {
+                    createMealModal &&  <CreateMeal/>
+                }
+       
+
 
         {/* HERO SECTION */}
         <div className='flex containter justify-center py-4 w-11/12 mx-auto items-center'>

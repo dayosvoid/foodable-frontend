@@ -3,13 +3,16 @@ import { FaArrowRight } from 'react-icons/fa'
 import { IoIosAdd } from 'react-icons/io'
 
 const EachFood = ({name,day,mealPeriod}) => {
+    const dayName = ["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    const mealTime = ["breakfast", "lunch", "dinner"]
+
    return (
     <div className='w-50 md:w-70 p-3 theme-bg-card theme-lightgray rounded-sm'>
       <div>
         {/* days of the week */}
         <div className='flex justify-between items-center w-full py-2 '> 
             <span className='theme-text font-semibold '>
-                <p>{day}</p>
+                <p>{dayName[day]}</p>
             </span>
             <button className=''>
                 <IoIosAdd className='size-7'/>
@@ -33,7 +36,7 @@ const EachFood = ({name,day,mealPeriod}) => {
 
         <div  className='w-full flex justify-between py-2' >
             <div className='font-medium theme-lightgray px-3 py-1 rounded-full'>
-                <p>{mealPeriod}</p>
+                <p>{mealTime[mealPeriod]}</p>
             </div>
             <button className='bg-gray-900 text-gray-400 font-semibold font-2xl rounded-2xl py-1 px-3'>
                 Edit
