@@ -63,7 +63,7 @@ const CreateMeal = () => {
     }
 
   return (
-    <div className='fixed inset-0 z-50 h-screen container  bg-white/40 backdrop-blur-sm w-full flex justify-center items-center'>
+    <div className='fixed inset-0 z-50 h-screen  bg-white/40 backdrop-blur-sm w-full flex justify-center items-center'>
             <div className={`${currentTheme} w-70 rounded-2xl `}>
                 
                 <form onSubmit={handleSubmit} className=' font-semibold rounded-md p-5 md:w-100 outline-none theme-lightgray flex flex-col theme-bg-card gap-6'>
@@ -96,7 +96,7 @@ const CreateMeal = () => {
 
                     </span>
                    <span className='relative w-full'>
-                    <select className='theme-lightgray outline-none ' name='mealPeriod' onChange={(e) => setFormData({...formData, mealPeriod: Number(e.target.value)})}>
+                    <select className='theme-lightgray outline-none w-full' name='mealPeriod' onChange={(e) => setFormData({...formData, mealPeriod: Number(e.target.value)})}>
                         <option className='text-gray-500' value="">Select meal period</option>
                         {mealTime.map((period, index) => (
                             <option key={index} value={index}>{period}</option>

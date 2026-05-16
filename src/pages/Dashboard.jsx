@@ -10,7 +10,10 @@ import { BarLoader } from 'react-spinners'
 import CreateMeal from '../components/CreateMeal'
 import { toggleCreateMealModal } from '../redux/modal'
 import { CiMenuFries } from 'react-icons/ci'
-import { IoClose } from 'react-icons/io5'
+import { IoClose, IoSunnySharp } from 'react-icons/io5'
+import Ingredient from '../components/Ingredient'
+import Footer from '../components/Footer'
+import { FaMoon } from 'react-icons/fa'
 
 const Dashboard = () => {
     const [menuOpen,setMenuOpen] = useState(false)
@@ -69,7 +72,7 @@ const Dashboard = () => {
                 </button> */}
 
                 <button>
-                    <a href="">Recommendations</a>
+                    <a href="">Ingredients</a>
                 </button>
 
                 <button type='button' onClick={()=>dispatch(toggleCreateMealModal())}>
@@ -101,7 +104,7 @@ const Dashboard = () => {
             {
                 menuOpen && <div className='flex flex-col w-full theme-lightgray font-semibold gap-8 py-5 px-2 inset-0 z-50 h-screen fixed top-17 bg-black/50 backdrop-blur-md'>
                     <button className='text-start'>Your meals</button>
-                    <button className='text-start'>Recommendations</button>
+                    <button className='text-start'>Ingredients</button>
                     <button onClick={()=>mobileAddMeal()} className='text-start'>Add Meal</button>
             </div>
             }
@@ -113,17 +116,17 @@ const Dashboard = () => {
 
 
         {/* HERO SECTION */}
-        <div className='flex containter justify-center py-4 w-11/12 mx-auto items-center'>
-           <div className='flex-1'>
+        <div className='flex containter gap-5 justify-center py-4 w-11/12 mx-auto items-center'>
+           <div className=''>
                 <h1 className='text-4xl md:text-5xl text-gray-500 font-bold leading-tight mb-4'>
                     Your meals, <span className='theme-text-standout'>planned perfectly.</span>
                 </h1>
                 <p className='text-gray-500 font-medium text-lg max-w-md mb-8'>
-                    Foodable helps you discover recipes, track ingredients, and get personalised meal recommendations — all in one place.
+                    Foodable helps you build-keep a weekly meal routine, track ingredients, and get personalised meal recommendations — all in one place.
                 </p>
            </div>
 
-            <div className='hidden md:flex flex-1 justify-center'>
+            <div className='hidden md:flex justify-center'>
                 <img src={heroMeal} alt="" />
             </div>
         </div>
@@ -133,10 +136,10 @@ const Dashboard = () => {
 
       </div>
 
-        <div className='md:h-80 h-100 py-5 overflow-y-auto theme-bg-surface '>
-            <div className='container w-11/12 mx-auto gap-3 grid md:grid-cols-3 place-items-center justify-items-center'>
+        <div className='h-80 md:min-h-100 py-5  overflow-y-auto theme-bg-surface '>
+            <div className='container w-11/12 mx-auto gap-3 grid md:grid-cols-3 sm:grid-cols-2 space-x-0.5 place-items-center justify-items-center'>
                     {isLoading ? (
-                    <div className='col-span-3 flex justify-center items-center w-full'>
+                    <div className='col-span-3 flex justify-center h-80 items-center w-full'>
                         <BarLoader className=''/>
                     </div>
                 ) : allFood.length === 0 ? (
@@ -146,6 +149,17 @@ const Dashboard = () => {
                 )}
             </div>
         </div>
+
+        {/* Monthly Ingredient */}
+        <Ingredient/>
+        <Footer/>
+
+        <button
+                  onClick={() => dispatch(toggleTheme())}
+                  className='theme-bg-surface fixed bottom-6 right-6 z-50 p-3 text-white rounded-full shadow-2xl hover:scale-110 transition-all active:scale-90'
+                >
+                  {currentTheme === "light" ? <FaMoon size={24}/> : <IoSunnySharp size={24}/>}
+            </button>
     </div>
   )
 }
