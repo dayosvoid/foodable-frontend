@@ -123,7 +123,7 @@ const [isLoading, setIsLoading] = useState(false)
                         {/* Form inputs would go here */}
                             <p className='font-semibold text-2xl md:py-4 opacity-40' >Sign Up</p>
             
-                            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+                            <form onSubmit={handleSubmit} className='flex text-4 flex-col gap-4'>
                                 {/* name */}
                                 <label htmlFor="" className='text-sm space-y-1 relative'>
                                     <p className='text-xm px-2'>Name</p>

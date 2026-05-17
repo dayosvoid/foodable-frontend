@@ -68,7 +68,7 @@ const CreateMeal = ({GetAllFood}) => {
     <div className='fixed inset-0 z-50 h-screen  bg-white/40 backdrop-blur-sm w-full flex justify-center items-center'>
             <div className={`${currentTheme} w-70 rounded-2xl `}>
                 
-                <form onSubmit={handleSubmit} className=' font-semibold rounded-md p-5 md:w-100 outline-none theme-lightgray flex flex-col theme-bg-card gap-6'>
+                <form onSubmit={handleSubmit} className=' font-semibold text-4 rounded-md p-5 md:w-100 outline-none theme-lightgray flex flex-col theme-bg-card gap-6'>
 
                 <div onClick={()=>dispatch(toggleCreateMealModal())} className=''>
                     <IoClose className='theme-text-standout size-5' />

@@ -93,7 +93,7 @@ const Login = () => {
           <div className='container w-11/12 mx-auto'>
             <p className='font-semibold text-2xl md:text-3xl md:py-5 opacity-40'>Login</p>
 
-            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+            <form onSubmit={handleSubmit} className='flex text-4 flex-col gap-4'>
               {/* email */}
              <label htmlFor="" className='text-sm space-y-1 relative'>
                                                  <p className='text-xm px-2'>Email</p>

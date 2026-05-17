@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
 import { IoClose } from 'react-icons/io5'
-import { toggleUpdateMealModal } from '../redux/modal'
-import { handleGetAllFood, handleUpdateFood } from '../apiCalls/food'
+import {  handleUpdateFood } from '../apiCalls/food'
 
 const UpdateMeal = ({ meal, onClose, GetAllFood }) => {
     const { currentTheme } = useSelector(state => state.theme)
@@ -53,10 +52,16 @@ const UpdateMeal = ({ meal, onClose, GetAllFood }) => {
         }
     } // ✅ handleSubmit closed here
 
+    useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+        document.body.style.overflow = 'unset'
+    }
+        }, [])
     return (
         <div className='fixed inset-0 z-50 h-screen bg-white/40 backdrop-blur-sm w-full flex justify-center items-center'>
             <div className={`${currentTheme} w-70 rounded-2xl`}>
-                <form onSubmit={handleSubmit} className='font-semibold rounded-md p-5 md:w-100 outline-none flex flex-col theme-bg-card gap-6'>
+                <form onSubmit={handleSubmit} className='font-semibold text-4 rounded-md p-5 md:w-100 outline-none flex flex-col theme-bg-card gap-6'>
 
                     <div onClick={(e) => { e.stopPropagation(); onClose() }} className='cursor-pointer'>
                         <IoClose className='theme-text-standout size-5'/>
