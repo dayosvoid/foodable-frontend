@@ -16,6 +16,6 @@ export const handleUpdateFood = async (id, data) => {
 }
 
 export const handleDeleteFood =async(id)=>{
-    const response = await axiosInstance.patch(`/api/foodable/food/delete/${id}`, data)
+    const response = await axiosInstance.delete(`/api/foodable/food/delete/${id}`)
     return response.data
 }

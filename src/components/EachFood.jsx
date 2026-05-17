@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa'
-import { IoIosAdd } from 'react-icons/io'
 import UpdateMeal from './UpdateMeal'
 import { IoClose } from 'react-icons/io5'
 import { handleDeleteFood } from '../apiCalls/food'
+import { toast } from 'sonner'
 
-const EachFood = ({ _id, name, day, mealPeriod }) => {
+const EachFood = ({ _id, name, day, mealPeriod,GetAllFood}) => {
     const [showUpdate, setShowUpdate] = useState(false)
     const dayName = ["sunday","monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
     const mealTime = ["breakfast", "lunch", "dinner"]
 
 
-    const handleDelete = async (id) => {
+    const handleDelete = async(id) => {
     try {
         const response = await handleDeleteFood(id)
         if (response.success) {
+            await GetAllFood()
             toast.success(response.message)
         }
     } catch (error) {
@@ -30,9 +31,9 @@ const EachFood = ({ _id, name, day, mealPeriod }) => {
                 <p>{dayName[day]}</p>
             </span>
             {/* add button */}
-            {/* <button onClick={()=>handleDelete(_id)} className='text-red-400'>
+            <button onClick={()=>handleDelete(_id)} className='text-red-400'>
                 <IoClose className='size-7 hover:cursor-pointer'/>
-            </button> */}
+            </button>
         </div>
 
         {/* FOOD CONTENT */}
@@ -63,6 +64,7 @@ const EachFood = ({ _id, name, day, mealPeriod }) => {
 
       {showUpdate && (
                 <UpdateMeal
+                    GetAllFood={GetAllFood}
                     meal={{ _id, name, day, mealPeriod }}
                     onClose={() => setShowUpdate(false)}
                 />

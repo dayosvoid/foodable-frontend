@@ -6,7 +6,7 @@ import { IoClose } from 'react-icons/io5';
 import { toggleCreateMealModal } from '../redux/modal';
 
 
-const CreateMeal = () => {
+const CreateMeal = ({GetAllFood}) => {
     const { currentTheme } = useSelector(state => state.theme);
     const dispatch = useDispatch()
     const [isTouched, setIsTouched] = useState(false)
@@ -50,6 +50,8 @@ const CreateMeal = () => {
         try {
             const response = await handleCreateFood({...formData})
             if(response.success){
+                dispatch(toggleCreateMealModal(false))
+                await GetAllFood()
                 toast.success(response.message)
                 setIsLoading(false)
                 setError({})

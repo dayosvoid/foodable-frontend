@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
 import { IoClose } from 'react-icons/io5'
 import { toggleUpdateMealModal } from '../redux/modal'
-import { handleUpdateFood } from '../apiCalls/food'
+import { handleGetAllFood, handleUpdateFood } from '../apiCalls/food'
 
-const UpdateMeal = ({ meal, onClose }) => {
+const UpdateMeal = ({ meal, onClose, GetAllFood }) => {
     const { currentTheme } = useSelector(state => state.theme)
     const dispatch = useDispatch()
 
@@ -43,6 +43,7 @@ const UpdateMeal = ({ meal, onClose }) => {
             const response = await handleUpdateFood(meal._id, {...formData})
             if (response.success) {
                 toast.success(response.message)
+                 await GetAllFood()
                 onClose()
             }
         } catch (error) {

@@ -14,14 +14,16 @@ import { IoClose, IoSunnySharp } from 'react-icons/io5'
 import Ingredient from '../components/Ingredient'
 import Footer from '../components/Footer'
 import { FaMoon } from 'react-icons/fa'
+import { removeFood, updateAllFood } from '../redux/food'
 
 const Dashboard = () => {
     const [menuOpen,setMenuOpen] = useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const { currentTheme } = useSelector(state => state.theme);
-    const [allFood, setAllFood] = useState([])
+    // const [allFood, setAllFood] = useState([])
 
     const dispatch = useDispatch()
+    const {allFood} = useSelector(state => state.food)
     const {createMealModal}= useSelector(state => state.modal)
 
     const GetAllFood = async()=>{
@@ -29,13 +31,13 @@ const Dashboard = () => {
             setIsLoading(true)
             const response = await handleGetAllFood()
             if(response.success){
-                toast.success(response.message)
-                console.log(response.allMeals)
-                setAllFood(response.allMeals)
+                // toast.success(response.message)
+                dispatch(updateAllFood(response.allMeals))
+                // dispatch(removeFood(response.allMeals))
+                // setAllFood(response.allMeals)
             }
         } catch (error) {
             toast.error(error.response?.data?.message || "Something went wrong")
-            setIsLoading(false)
         } finally{
             setIsLoading(false)
         }
@@ -110,7 +112,7 @@ const Dashboard = () => {
             }
 
                 {
-                    createMealModal &&  <CreateMeal/>
+                    createMealModal &&  <CreateMeal GetAllFood={GetAllFood}/>
                 }
        
 
@@ -145,7 +147,7 @@ const Dashboard = () => {
                 ) : allFood.length === 0 ? (
                     <p className='col-span-3 text-center text-gray-400 py-4'>No meals yet</p>
                 ) : (
-                    allFood.map((food) => <EachFood key={food._id} {...food} />)
+                    allFood.map((food) => <EachFood GetAllFood={GetAllFood} key={food._id} {...food} />)
                 )}
             </div>
         </div>
