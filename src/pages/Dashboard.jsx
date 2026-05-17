@@ -20,6 +20,14 @@ const Dashboard = () => {
     const mealsRef = useRef(null)
     const ingredientsRef = useRef(null)
 
+    const handleScroll = (ref) => {
+    setMenuOpen(false)
+    setTimeout(() => {
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 100) // wait for menu to close before scrolling
+}
+
+
     const [menuOpen,setMenuOpen] = useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const { currentTheme } = useSelector(state => state.theme);
@@ -28,6 +36,7 @@ const Dashboard = () => {
     const dispatch = useDispatch()
     const {allFood} = useSelector(state => state.food)
     const {createMealModal}= useSelector(state => state.modal)
+    
 
     const GetAllFood = async()=>{
         try {
@@ -54,6 +63,18 @@ const Dashboard = () => {
         setMenuOpen(false)
         dispatch(toggleCreateMealModal())
     }
+
+    useEffect(() => {
+    if (createMealModal || menuOpen) {
+        document.body.style.overflow = 'hidden'
+    } else {
+        document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+        document.body.style.overflow = 'unset'
+    }
+}, [createMealModal, menuOpen])
   return (
     <div className={`${currentTheme}`}>
       <div className='theme-bg-card'>
@@ -108,8 +129,8 @@ const Dashboard = () => {
 
             {
                 menuOpen && <div className='flex flex-col w-full theme-lightgray font-semibold gap-8 py-5 px-2 inset-0 z-50 h-screen fixed top-17 bg-black/50 backdrop-blur-md'>
-                    <button className='text-start'>Your meals</button>
-                    <button className='text-start'>Ingredients</button>
+                    <button onClick={()=>handleScroll(mealsRef)} className='text-start'>Your meals</button>
+                    <button onClick={()=>handleScroll(ingredientsRef)} className='text-start'>Ingredients</button>
                     <button onClick={()=>mobileAddMeal()} className='text-start'>Add Meal</button>
             </div>
             }
