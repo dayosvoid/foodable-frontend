@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const axiosInstance = axios.create({
-   VITE_API_URL:import.meta.env.BASE_URL
+  BASE_URL:import.meta.env. VITE_API_URL 
 })
 
 axiosInstance.interceptors.request.use((config)=>{
