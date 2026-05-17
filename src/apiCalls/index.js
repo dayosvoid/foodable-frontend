@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const axiosInstance = axios.create({
-    baseURL:"https://foodable-backend-5gpw.onrender.com"
+    baseURL:import.meta.env.BASE_URL
 })
 
 axiosInstance.interceptors.request.use((config)=>{
@@ -11,3 +11,14 @@ axiosInstance.interceptors.request.use((config)=>{
     }
     return config
 })
+
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            localStorage.removeItem('token')
+            window.location.href = '/' // redirect to login
+        }
+        return Promise.reject(error)
+    }
+)
