@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const axiosInstance = axios.create({
-    baseURL:"http://localhost:2000"
+    baseURL:"https://foodable-backend-5gpw.onrender.com"
 })
 
 axiosInstance.interceptors.request.use((config)=>{
