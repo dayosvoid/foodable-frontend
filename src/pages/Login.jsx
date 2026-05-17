@@ -21,12 +21,12 @@ const Login = () => {
 
   const validation = (data) => {
     let validatorError = {}
-    if (!data.email) {
+    if (!data.email.trim()) {
       validatorError.email = "Email is required"
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
       validatorError.email = "Enter a valid email"
     }
-    if (!data.password) {
+    if (!data.password.trim()) {
       validatorError.password = "Password is required"
     } else if (data.password.length < 6) {
       validatorError.password = "Password must be at least 6 characters"
@@ -47,14 +47,20 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsTouched({ email: true, password: true })
-    const errors = validation(formData)
+
+    const trimmedData = {
+        email: formData.email.trim(),
+        password: formData.password.trim()
+    }
+
+    const errors = validation(trimmedData)
     if (Object.keys(errors).length > 0) {
       setFormError(errors)
       return
     }
     setIsLoading(true)
     try {
-      const response = await handleLogin(formData)
+      const response = await handleLogin(trimmedData)
       if (response.success) {
         localStorage.setItem('token', response.token)
         toast.success(response.message || "Welcome back!")
@@ -109,7 +115,7 @@ const Login = () => {
                                                      <span>
                                                          <TbPassword className='opacity-60'/>
                                                      </span>
-                                                     <input type="text" name='password' value={formData.password} onChange={(e)=>setFormData({...formData,password:e.target.value})} onBlur={handleIsTouched} className='outline-none text-16px bg-transparent '/>
+                                                     <input type="password" name='password' value={formData.password} onChange={(e)=>setFormData({...formData,password:e.target.value})} onBlur={handleIsTouched} className='outline-none text-16px bg-transparent '/>
                                                      {istouched.password && formError.password && (
                                                          <p className='text-red-500 text-xs px-2 font-semibold absolute left-0 top-full text-nowrap'>{formError.password}</p>
                                                      )}

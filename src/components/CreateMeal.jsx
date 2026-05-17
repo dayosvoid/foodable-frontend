@@ -81,7 +81,7 @@ const CreateMeal = ({GetAllFood}) => {
                             className='text-4 outline-none'
                                 type="text"
                                 value={formData.name}
-                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                onChange={(e) => setFormData({...formData, name: e.target.value.trimStart()})}
                             />
                         </span>
                         {isTouched && error.name && <p className='text-red-500 text-xs absolute buttom-0 right-0'>{error.name}</p>}

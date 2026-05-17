@@ -18,7 +18,7 @@ const RegisterPage = () => {
 //    form validation
 const [isLoading, setIsLoading] = useState(false)
    const [formData, setFormData] = useState({name:"", email:"",password:"",confirmPassword:""})
-   const [formError, setFormError]= useState("")
+   const [formError, setFormError]= useState({})
    const [istouched,setIsTouched] = useState({name:false,email:false,password:false, confirmPassword:false})
 
    const validation = (data) => {
@@ -64,13 +64,21 @@ const [isLoading, setIsLoading] = useState(false)
  const handleSubmit = async(e) => {
   e.preventDefault()
   setIsTouched({name:true, email:true, password:true, confirmPassword:true})
-  const errors = validation(formData)
+
+  const trimmedData = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        password: formData.password.trim(),
+        confirmPassword: formData.confirmPassword.trim()
+    }
+
+  const errors = validation(trimmedData)
   if (Object.keys(errors).length > 0) {
     setFormError(errors)
     return
   }
 
-  const { confirmPassword, ...dataToSend } = formData
+  const { confirmPassword, ...dataToSend } = trimmedData
   // proceed with API call
   setIsLoading(true)
   try {
@@ -150,7 +158,7 @@ const [isLoading, setIsLoading] = useState(false)
                                         <span>
                                             <TbPassword className='opacity-60'/>
                                         </span>
-                                        <input type="text" name='password' value={formData.password} onChange={(e)=>setFormData({...formData,password:e.target.value})} onBlur={handleIsTouched} className='outline-none text-16px bg-transparent '/>
+                                        <input type="password" name='password' value={formData.password} onChange={(e)=>setFormData({...formData,password:e.target.value})} onBlur={handleIsTouched} className='outline-none text-16px bg-transparent '/>
                                         {istouched.password && formError.password && (
                                             <p className='text-red-500 text-xs px-2 font-semibold absolute left-0 top-full text-nowrap'>{formError.password}</p>
                                         )}
@@ -165,7 +173,7 @@ const [isLoading, setIsLoading] = useState(false)
                                         <span>
                                             <TbPassword className='opacity-60'/>
                                         </span>
-                                        <input type="text" name='confirmPassword' value={formData.confirmPassword} onChange={(e)=>setFormData({...formData, confirmPassword:e.target.value})} onBlur={handleIsTouched} className='outline-none text-16px bg-transparent '/>
+                                        <input type="password" name='confirmPassword' value={formData.confirmPassword} onChange={(e)=>setFormData({...formData, confirmPassword:e.target.value})} onBlur={handleIsTouched} className='outline-none text-16px bg-transparent '/>
                                             {istouched.confirmPassword && formError.confirmPassword && (
                                                 <p className='text-red-500 text-xs px-2 font-semibold absolute left-0 top-full text-nowrap'>{formError.confirmPassword}</p>
                                             )}
