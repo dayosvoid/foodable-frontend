@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleTheme } from '../redux/theme'
 import { GiHotMeal, GiMeal } from 'react-icons/gi'
@@ -17,6 +17,9 @@ import { FaMoon } from 'react-icons/fa'
 import { removeFood, updateAllFood } from '../redux/food'
 
 const Dashboard = () => {
+    const mealsRef = useRef(null)
+    const ingredientsRef = useRef(null)
+
     const [menuOpen,setMenuOpen] = useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const { currentTheme } = useSelector(state => state.theme);
@@ -65,16 +68,16 @@ const Dashboard = () => {
             </div>
             {/* MIDDLE */}
             <div className='hidden flex-1 justify-between text-gray-400 theme-text md:flex theme-text  text-lg font-semibold'>
-                <button>
-                    <a href="">Your meals</a>
+                <button  onClick={() => mealsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start'  })}>
+                Your meals
                 </button>
 
                 {/* <button>
                     <a href="">Ingredient</a>
                 </button> */}
 
-                <button>
-                    <a href="">Ingredients</a>
+                <button onClick={() => ingredientsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start'  })}>
+                    Ingredients
                 </button>
 
                 <button type='button' onClick={()=>dispatch(toggleCreateMealModal())}>
@@ -138,7 +141,7 @@ const Dashboard = () => {
 
       </div>
 
-        <div className='h-80 md:min-h-100 py-5  overflow-y-auto theme-bg-surface '>
+        <div ref={mealsRef} className='h-80 md:min-h-100 py-5  overflow-y-auto theme-bg-surface '>
             <div className='container w-11/12 mx-auto gap-3 grid md:grid-cols-3 sm:grid-cols-2 space-x-0.5 place-items-center justify-items-center'>
                     {isLoading ? (
                     <div className='col-span-3 flex justify-center h-80 items-center w-full'>
@@ -153,7 +156,7 @@ const Dashboard = () => {
         </div>
 
         {/* Monthly Ingredient */}
-        <Ingredient/>
+        <Ingredient ref={ingredientsRef}/>
         <Footer/>
 
         <button
